@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const bookingRoutes = require("./routes/booking");
+const bookingsRoutes = require("./routes/bookings"); // Import routes
 
 const app = express();
 
@@ -17,6 +18,16 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
+//Middleware to parse JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Serve static files (HTML)
+app.use(express.static(path.join(__dirname, "publics")));
+
+// Register routes
+app.use("/bookings", bookingsRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
