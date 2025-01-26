@@ -15,7 +15,7 @@ app.use("/api/bookings", bookingRoutes);
 app.use(express.static(path.join(__dirname, "public")));
 
 // Fallback route to serve the HTML file for any other routes (e.g., / or undefined routes)
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
