@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booked Data</title>
+  <script>
+    // Fetch booked data from the API
+    async function fetchBookedData() {
+      const response = await fetch("/api/bookings");
+      const data = await response.json();
+      const tableBody = document.getElementById("table-body");
+      tableBody.innerHTML = "";
+
+      if (data.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="5">No booked data available.</td></tr>`;
+        return;
+      }
+
+      data.forEach((item) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.id}</td>
+          <td>${item.name}</td>
+          <td>${item.email}</td>
+          <td>${item.room_type}</td>
+          <td>${item.check_in} - ${item.check_out}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Fetch data on page load
+    window.onload = fetchBookedData;
+  </script>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <h1>Booked Data</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Room Type</th>
+        <th>Check-In/Out</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <!-- Data will be dynamically inserted here -->
+    </tbody>
+  </table>
+</body>
+</html>
