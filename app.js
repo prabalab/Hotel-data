@@ -1,33 +1,27 @@
 const express = require("express");
 const path = require("path");
-const bookingRoutes = require("./routes/booking");
-const bookingsRoutes = require("./routes/bookings"); // Import routes
+
+// Import routes
+const bookingRoutes = require("./routes/booking"); // Route to handle "show booking"
+const bookingsRoutes = require("./routes/bookings"); // Route to handle "show booked data"
 
 const app = express();
 
-// Middleware to parse JSON
-app.use(express.json());
-
-// Serve API routes
-app.use("/api/bookings", bookingRoutes);
-
-// Serve the static HTML page
-app.use(express.static(path.join(__dirname, "public")));
-
-// Fallback route to serve the HTML file for any other routes (e.g., / or undefined routes)
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-//Middleware to parse JSON
+// Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files (HTML)
-app.use(express.static(path.join(__dirname, "publics")));
+// Serve static files (e.g., HTML, CSS, JS)
+app.use(express.static(path.join(__dirname, "public")));
 
-// Register routes
-app.use("/bookings", bookingsRoutes);
+// Register API routes
+app.use("/api/booking", bookingRoutes); // URL for showing booking data
+app.use("/api/bookings", bookingsRoutes); // URL for showing booked data
+
+// Fallback route to serve the main HTML file for undefined routes
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 // Start the server
 const PORT = process.env.PORT || 5000;
