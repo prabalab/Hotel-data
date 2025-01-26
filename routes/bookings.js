@@ -3,7 +3,7 @@ const pool = require("../db"); // Import the database connection
 const router = express.Router();
 
 // Fetch all bookings
-router.get("/", async (req, res) => {
+router.get("/showbookings", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM hotel_bookings ORDER BY id");
     res.json(result.rows);
