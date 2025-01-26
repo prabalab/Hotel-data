@@ -40,7 +40,7 @@
         const response = await fetch(`/api/bookings/${id}`, { method: "DELETE" });
         const result = await response.json();
         alert(result.message);
-        fetchBookings(); // Refresh the bookings table
+        fetchBookedData(); // Refresh the bookings table
       }
     }
     // Fetch data on page load
