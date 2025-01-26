@@ -18,6 +18,11 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/booking", bookingRoutes); // URL for showing booking data
 app.use("/api/bookings", bookingsRoutes); // URL for showing booked data
 
+// New route to show booked data in HTML format
+app.get("/booked-data", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "booked-data.html"));
+});
+
 // Fallback route to serve the main HTML file for undefined routes
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
