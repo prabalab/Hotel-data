@@ -4,6 +4,8 @@ const path = require("path");
 // Import routes
 const bookingRoutes = require("./routes/booking"); // Route to handle "show booking"
 const bookingsRoutes = require("./routes/bookings"); // Route to handle "show booked data"
+const pdfRouter = require("./routes/pdfRouter");  // Import the router
+
 
 const app = express();
 
